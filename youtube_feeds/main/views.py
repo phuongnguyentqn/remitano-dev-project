@@ -16,7 +16,8 @@ def index(request):
 def login_register(request):
     form = LoginRegisterForm(request.POST)
     if not form.is_valid():
-        return HttpResponse(status=400)
+        err_data = {'message': 'Invalid data.'}
+        return JsonResponse(err_data, status=400)
     email = form.cleaned_data['email']
     password = form.cleaned_data['password']
     # If user login successfully, login the request
