@@ -23,13 +23,14 @@ def login_register(request):
     user = authenticate(request, username=email, password=password)
     if user is not None:
         login(request, user)
-        return HttpResponseRedirect('/')
+        return JsonResponse({'redirect_url': '/'})
     # If, email exists, return incorrect credentials
     if User.objects.filter(email=email).exists():
-        return HttpResponse(status=400)
+        err_data = {'message': 'Email or password is incorrect.'}
+        return JsonResponse(err_data, status=400)
     user = User.objects.create_user(email, email, password)
     login(request, user)
-    return HttpResponseRedirect('/')
+    return JsonResponse({'redirect_url': '/'})
 
 @require_http_methods(['POST'])
 def logout_view(request):

@@ -10,16 +10,16 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
       <a class="navbar-brand" href="#">Funny Movies</a>
       {% if not user.is_authenticated %}
-        <form action="/login-register" method="post" class="form-inline my-2 my-lg-0 float-right">
+        <form id="form-login" action="/login-register" method="post" class="form-inline my-2 my-lg-0">
           {% csrf_token %}
           <input class="form-control mr-sm-2" name="email" type="email" placeholder="email" aria-label="Email">
           <input class="form-control mr-sm-2" name="password" type="password" placeholder="password" aria-label="Password">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login / Register</button>
+          <button id="btn-login" class="btn btn-outline-success my-2 my-sm-0" type="submit">Login / Register</button>
         </form>
       {% else %}
         <span> Welcome {{ user.email }}</span>
         <a class="btn btn-primary my-2 my-sm-0" href="/share">Share a movie</a>
-        <button class="btn btn-outline-secondary my-2 my-sm-0" type="button" id="btn-logout">Logout</button>
+        <button id="btn-logout" class="btn btn-outline-secondary my-2 my-sm-0" type="button">Logout</button>
       {% endif %}
     </div>
   </nav>
