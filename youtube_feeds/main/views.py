@@ -7,7 +7,6 @@ from main.forms.login_register import LoginRegisterForm
 
 
 def index(request):
-    print(request.user)
     ctx = {'user': request.user}
     return render(request, 'index.html', ctx)
 

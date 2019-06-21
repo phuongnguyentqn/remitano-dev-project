@@ -1,4 +1,6 @@
 {% include 'snippets/head.html' %}
+{% load static %}
+
 <body>
   <!-- navbar -->
   <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
@@ -15,9 +17,15 @@
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login / Register</button>
         </form>
       {% else %}
-        <strong>{{ user.email }}</strong>
+        <span> Welcome {{ user.email }}</span>
+        <a class="btn btn-primary my-2 my-sm-0" href="/share">Share a movie</a>
+        <button class="btn btn-outline-secondary my-2 my-sm-0" type="button" id="btn-logout">Logout</button>
       {% endif %}
     </div>
   </nav>
   <!-- / navbar -->
+  <main>
+    Main
+  </main>
+  <script src="{% static 'app.js' %}" charset="utf-8"></script>
 </body>
