@@ -2,15 +2,18 @@ $(function(){
   const $btnLogout = $("#btn-logout");
   const $btnLogin = $("#btn-login");
   const $formLogin = $("#form-login");
+  const $btnShare = $("#btn-share");
+  const $formShare = $("#form-share-video");
 
   // Handle click login
   $btnLogin.on("click", function(e) {
     e.preventDefault();
     console.log("Click Login");
+    // TODO: Check required input
     var data = {};
     $formLogin.serializeArray().forEach(function(v) {
       data[v.name] = v.value;
-    })
+    });
     $.ajax({
       method: "POST",
       url: "login-register",
@@ -32,6 +35,27 @@ $(function(){
       data: {"csrfmiddlewaretoken": crsf_token},
       success: function(data) {
         location.pathname = data.redirect_url;
+      }
+    });
+  });
+  // Handle click share
+  $btnShare.on("click", function(e) {
+    e.preventDefault();
+    console.log("Click Share");
+    // TODO: Check required input
+    var data = {};
+    $formLogin.serializeArray().forEach(function(v) {
+      data[v.name] = v.value;
+    });
+    $.ajax({
+      method: "POST",
+      url: "do-share",
+      data: data,
+      success: function(data) {
+        location.pathname = data.redirect_url;
+      },
+      error: function(err) {
+        alert(err.responseJSON.message);
       }
     });
   });
