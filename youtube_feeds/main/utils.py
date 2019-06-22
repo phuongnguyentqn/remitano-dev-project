@@ -1,3 +1,4 @@
+import json
 import urllib.request
 
 from socket import timeout
@@ -9,6 +10,6 @@ def get_youtube_metadata(url):
         response = urllib.request.urlopen(
             metadata_api, timeout=10
         ).read().decode('utf-8')
-        return True, response
+        return True, json.loads(response)
     except Exception as e:
         return False, {'message': str(e)}
