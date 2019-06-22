@@ -2,9 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-from main.forms.login_register import LoginRegisterForm
+from main.forms import LoginRegisterForm, ShareVideoForm
+from main.models import YoutubeVideo
+from main.utils import get_youtube_metadata
 
 
 @require_http_methods(['GET'])
@@ -37,3 +40,27 @@ def login_register(request):
 def logout_view(request):
     logout(request)
     return JsonResponse({'redirect_url': '/'})
+
+@require_http_methods(['GET'])
+@login_required
+def share(request):
+    ctx = {'user': request.user}
+    return render(request, 'share.html', ctx)
+
+@require_http_methods(['POST'])
+@login_required
+def do_share(request):
+    # Get the url & validate using form
+    form = ShareVideoForm(request.POST)
+    if not form.is_valid():
+        err_data = {'message': 'Invalid data.'}
+        return JsonResponse(err_data, status=400)
+    video_url = form.cleaned_data['url']
+    # Verify using youtube api
+    is_valid, data = get_youtube_metadata(video_url)
+    if not is_valid:
+        return JsonResponse(data, status=400)
+    # Create new object if url is valid & redirect to home
+    new_video = YoutubeVideo.objects.create(**metadata)
+    # Return error message if not valid
+    pass
