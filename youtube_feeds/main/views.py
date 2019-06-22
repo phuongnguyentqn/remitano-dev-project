@@ -60,7 +60,11 @@ def do_share(request):
     is_valid, data = get_youtube_metadata(video_url)
     if not is_valid:
         return JsonResponse(data, status=400)
-    # Create new object if url is valid & redirect to home
-    new_video = YoutubeVideo.objects.create(**metadata)
+    # Create new object if url is valid
+    video, created = YoutubeVideo.objects.get_or_create(**data)
     # Return error message if not valid
-    pass
+    if not created:
+        err_data = {'message': 'The video has already shared.'}
+        return JsonResponse(err_data, status=400)
+    # Redirect to home if success
+    return JsonResponse({'redirect_url': '/'})
