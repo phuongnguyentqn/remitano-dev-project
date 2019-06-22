@@ -61,6 +61,7 @@ def do_share(request):
     if not is_valid:
         return JsonResponse(data, status=400)
     # Create new object if url is valid
+    data['shared_by_id'] = request.user.id
     video, created = YoutubeVideo.objects.get_or_create(**data)
     # Return error message if not valid
     if not created:

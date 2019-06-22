@@ -44,9 +44,10 @@ $(function(){
     console.log("Click Share");
     // TODO: Check required input
     var data = {};
-    $formLogin.serializeArray().forEach(function(v) {
+    $formShare.serializeArray().forEach(function(v) {
       data[v.name] = v.value;
     });
+    console.log(data);
     $.ajax({
       method: "POST",
       url: "do-share",
@@ -56,6 +57,7 @@ $(function(){
       },
       error: function(err) {
         alert(err.responseJSON.message);
+        $formShare.find('input[name=url]').val("");
       }
     });
   });

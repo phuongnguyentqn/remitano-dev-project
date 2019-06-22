@@ -2,9 +2,10 @@
 
 {% block content %}
   <form id="form-share-video">
+    {% csrf_token %}
     <div class="form-group row">
       <label for="youtube-url" class="col-sm-2 col-form-label">Youtube URL</label>
-      <input type="text" class="form-control col-sm-4" id="youtube-url" required placeholder="Share a youtube movie">
+      <input name="url" type="text" class="form-control col-sm-4" id="youtube-url" required placeholder="Share a youtube movie">
     </div>
     <button id="btn-share" type="submit" class="btn btn-primary">Share</button>
   </form>
