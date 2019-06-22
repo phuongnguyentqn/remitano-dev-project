@@ -4,9 +4,13 @@
   <form id="form-share-video">
     {% csrf_token %}
     <div class="form-group row">
-      <label for="youtube-url" class="col-sm-2 col-form-label">Youtube URL</label>
-      <input name="url" type="text" class="form-control col-sm-4" id="youtube-url" required placeholder="Share a youtube movie">
+      <div class="offset-md-2 col-md-8">
+        <label for="youtube-url" class="col-form-label">Youtube URL:</label>
+        <input name="url" type="text" class="form-control" id="youtube-url" required placeholder="Share a youtube movie">
+        <div class="container">
+          <button id="btn-share" type="submit" class="btn btn-dark btn-lg mt-3">Share</button>
+        </div>
+      </div>
     </div>
-    <button id="btn-share" type="submit" class="btn btn-primary">Share</button>
   </form>
 {% endblock %}

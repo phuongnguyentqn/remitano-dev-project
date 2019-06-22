@@ -3,24 +3,27 @@
 
 <body>
   <!-- navbar -->
-  <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-item navbar-brand" href="/"><b>FUNNY VIDEOS</b></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="/">Funny Movies</a>
-      {% if not user.is_authenticated %}
-        <form id="form-login" action="/login-register" method="post" class="form-inline my-2 my-lg-0">
-          {% csrf_token %}
-          <input class="form-control mr-sm-2" name="email" type="email" required placeholder="email" aria-label="Email">
-          <input class="form-control mr-sm-2" name="password" type="password" required placeholder="password" aria-label="Password">
-          <button id="btn-login" class="btn btn-outline-success my-2 my-sm-0" type="submit">Login / Register</button>
-        </form>
-      {% else %}
-        <span> Welcome {{ user.email }}</span>
-        <a class="btn btn-primary my-2 my-sm-0" href="/share">Share a movie</a>
-        <button id="btn-logout" class="btn btn-outline-secondary my-2 my-sm-0" type="button">Logout</button>
-      {% endif %}
+    <div class="collapse navbar-collapse" id="navbarToggler">
+      <ul class="navbar-nav mr-auto"></ul>
+      <div class="navbar-item">
+        {% if not user.is_authenticated %}
+          <form id="form-login" action="/login-register" method="post" class="form-inline my-2 my-lg-0">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" name="email" type="email" required placeholder="email" aria-label="Email">
+            <input class="form-control mr-sm-2" name="password" type="password" required placeholder="password" aria-label="Password">
+            <button id="btn-login" class="btn btn-outline-success my-2 my-sm-0" type="submit">Login / Register</button>
+          </form>
+        {% else %}
+          <span class="welcome mr-1"> Welcome {{ user.email }}</span>
+          <a class="btn btn-outline-success my-2 my-sm-0 mr-1" href="/share">Share a movie</a>
+          <button id="btn-logout" class="btn btn-outline-light my-2 my-sm-0" type="button">Logout</button>
+        {% endif %}
+      </div>
     </div>
   </nav>
   <!-- / navbar -->
