@@ -12,7 +12,9 @@ from main.utils import get_youtube_metadata
 
 @require_http_methods(['GET'])
 def index(request):
-    ctx = {'user': request.user}
+    videos = YoutubeVideo.objects.select_related('shared_by').all() \
+        .order_by('-shared_at')[:30]
+    ctx = {'user': request.user, 'videos': videos}
     return render(request, 'index.html', ctx)
 
 @require_http_methods(['POST'])
@@ -60,12 +62,12 @@ def do_share(request):
     is_valid, data = get_youtube_metadata(video_url)
     if not is_valid:
         return JsonResponse(data, status=400)
-    # Create new object if url is valid
-    data['shared_by_id'] = request.user.id
-    video, created = YoutubeVideo.objects.get_or_create(**data)
-    # Return error message if not valid
-    if not created:
+    # Return error message if video already shared
+    if YoutubeVideo.objects.filter(vid=data['vid']).exists():
         err_data = {'message': 'The video has already shared.'}
         return JsonResponse(err_data, status=400)
+    # Create new object if url is valid
+    data['shared_by_id'] = request.user.id
+    YoutubeVideo.objects.create(**data)
     # Redirect to home if success
     return JsonResponse({'redirect_url': '/'})
