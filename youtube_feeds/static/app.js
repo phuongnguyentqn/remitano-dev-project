@@ -47,7 +47,6 @@ $(function(){
     $formShare.serializeArray().forEach(function(v) {
       data[v.name] = v.value;
     });
-    console.log(data);
     $.ajax({
       method: "POST",
       url: "do-share",

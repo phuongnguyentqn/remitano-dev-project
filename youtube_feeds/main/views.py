@@ -36,7 +36,7 @@ def login_register(request):
         return JsonResponse(err_data, status=400)
     user = User.objects.create_user(email, email, password)
     login(request, user)
-    return JsonResponse({'redirect_url': '/'})
+    return JsonResponse({'redirect_url': '/'}, status=201)
 
 @require_http_methods(['POST'])
 def logout_view(request):
@@ -55,7 +55,7 @@ def do_share(request):
     # Get the url & validate using form
     form = ShareVideoForm(request.POST)
     if not form.is_valid():
-        err_data = {'message': 'Invalid data.'}
+        err_data = {'message': 'Empty data.'}
         return JsonResponse(err_data, status=400)
     video_url = form.cleaned_data['url']
     # Verify using youtube api
