@@ -20,7 +20,12 @@ def get_youtube_metadata(url):
     metadata_api = 'http://www.youtube.com/oembed?url={}&format=json'.format(url)
     try:
         json_data = _get_as_json(metadata_api)
-        data = {'vid': vid, 'title': json_data['title']}
+        data = {
+            'vid': vid,
+            'title': json_data['title'],
+            'author_name': json_data['author_name'],
+            'author_url': json_data['author_url'],
+        }
         return True, data
     except Exception as e:
         return False, {'message': str(e)}

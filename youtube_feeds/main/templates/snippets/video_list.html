@@ -8,7 +8,7 @@
         <p><strong>{{ video.title }}</strong></p>
         <p>Shared by: {{ video.shared_by.email }}</p>
         <p>Description:</p>
-        <p><small><i>{{ video.description }}</i></small></p>
+        <p><small><i>{{ video.description_text | safe }}</i></small></p>
       </div>
     </div>
   {% endfor %}

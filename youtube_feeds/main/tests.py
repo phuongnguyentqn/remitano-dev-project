@@ -109,10 +109,12 @@ class UtilsTest(TestCase):
 
     @patch('main.utils._get_as_json')
     def test_get_youtube_metadata(self, mock_get):
-        mock_data = {'title': 'mock_title'}
+        mock_data = {
+            'title': 'mock_title', 'author_name': 'author', 'author_url': 'url'
+        }
         mock_get.return_value = mock_data
         video_url = 'https://youtu.be/t-x90HPhQUk'
         is_valid, data = utils.get_youtube_metadata(video_url)
         self.assertTrue(is_valid)
-        actual_data = mock_data.update({'vid': utils.get_youtube_id(video_url)})
+        mock_data.update({'vid': utils.get_youtube_id(video_url)})
         self.assertEqual(data, mock_data)
