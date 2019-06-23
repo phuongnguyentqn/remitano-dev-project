@@ -1,7 +1,7 @@
 <div class='container-fluid video-list'>
   {% for video in videos %}
-    <div class="row video-item mb-2" style="width: 90%;margin: 0 auto;">
-      <div class="col-md-5 video-item__iframe">
+    <div class="row video-item mb-3" style="width: 90%;margin: 0 auto;">
+      <div class="col-md-6 video-item__iframe">
         <iframe width="300" height="239" src="https://www.youtube.com/embed/{{ video.vid }}?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
       <div class="col-md-6 video-item__info">
