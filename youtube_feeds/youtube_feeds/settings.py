@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'z(qj*o&h93i_hs@y#p@1o^gq0iy1j6zjt&erlmx=c5o)b#+%o#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['remitano-funny-movie.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
