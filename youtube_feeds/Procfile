@@ -1,1 +1,1 @@
-gunicorn youtube_feeds.wsgi:application --bind=0.0.0.0 --log-level=info
+web: gunicorn youtube_feeds.wsgi:application --bind=0.0.0.0 --log-level=info
